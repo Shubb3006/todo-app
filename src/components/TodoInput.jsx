@@ -1,4 +1,6 @@
-const Todo_Input = ({ task, setTask, onSub }) => {
+import React from "react";
+
+const TodoInput = ({onSub,task,setTask}) => {
   return (
     <div className="todo-input">
       <form onSubmit={onSub}>
@@ -13,4 +15,4 @@ const Todo_Input = ({ task, setTask, onSub }) => {
   );
 };
 
-export default Todo_Input;
+export default TodoInput;

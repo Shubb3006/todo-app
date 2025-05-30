@@ -38,6 +38,10 @@
   margin-top: 10px;
 }
 
+.loading{
+  color: blue;
+}
+
 .todo-list li {
   display: flex;
   justify-content: space-between;

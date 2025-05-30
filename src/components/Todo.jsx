@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Todo_Input from "./Todo_Input";
 import All_Todos from "./All_Todos";
+import TodoInput from "./TodoInput";
 
 const Todo = () => {
   const [task, setTask] = useState("");
@@ -9,6 +9,7 @@ const Todo = () => {
     return storedTasks ? JSON.parse(storedTasks) : [];
   });
   const [isEdit, setIsEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function handleDelete(id) {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id != id));
@@ -30,20 +31,25 @@ const Todo = () => {
     if (!task) return;
     const newTask = { id: Date.now(), task };
     if (!newTask) return;
-    setTasks((prevTasks) => [...prevTasks, newTask]);
     setTask("");
+    setLoading(true);
+    setTimeout(() => {
+      setTasks((prevTasks) => [...prevTasks, newTask]);
 
-    if (isEdit) setIsEdit(false);
+      if (isEdit) setIsEdit(false);
+      setLoading(false);
+    }, 2000);
   }
 
   return (
     <div className="todo-container">
-      <Todo_Input task={task} setTask={setTask} onSub={handleSubmit} />
+      <TodoInput onSub={handleSubmit} task={task} setTask={setTask} />
       <All_Todos
         tasks={tasks}
         onDelete={handleDelete}
         onEdit={handleEdit}
         isEdit={isEdit}
+        loading={loading}
       />
     </div>
   );
